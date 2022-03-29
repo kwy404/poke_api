@@ -49,6 +49,10 @@ function App() {
         getImagePokemon={getImagePokemon}
         />
       ) }
+      <h1 style={{
+        left: `9%`,
+        position: `relative`
+      }}>Pokémon's</h1>
       <ListPokemons>
         { loadingApi && pokemonsData && pokemonsData.map((pokemon: any, index: number) => (
           <div key={index}>

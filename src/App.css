@@ -2,6 +2,8 @@ body{
   background: #151515;
   color: white;
   user-select: none;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .fire{
