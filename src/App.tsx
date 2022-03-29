@@ -41,6 +41,8 @@ function App() {
         data[`moreData`] = moreData
         if(typeof data.results == `undefined`){
           SetSelectPokemon(data)
+          //Reset input
+          document.querySelector(`#searchPokemon`).value = ``
         }
       }
     }, 300)
