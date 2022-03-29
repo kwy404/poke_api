@@ -52,12 +52,9 @@ function App() {
         if (window.innerHeight + document.documentElement.scrollTop === document.scrollingElement.scrollHeight) {
           if(!loadMorePokemons){
             setPokemonLength(pokemonsData.length)
-            setLoadMorePokemons(true)
             StartLoadingApi()
+            setLoadMorePokemons(true)
             window[`page`] = window[`page`] + 1
-          }
-          if(pokemonsData.length >= (pokemonLength  + 36) ){
-            setLoadMorePokemons(false)
           }
         }
       }, 2000)
@@ -81,10 +78,10 @@ function App() {
         })
         setApiLoading(true)
         setPokemonsData(newArry)
+        setLoadMorePokemons(false)
       } else{
         setPokemonsData(moreData.results)
       }
-      
     }, 1000)
   }
 
