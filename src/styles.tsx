@@ -121,7 +121,7 @@ const PokemonCard = styled.div`
 
   h2 {
     color: #fff;
-    font-size: 2em;
+    font-size: 1.4em;
     text-shadow: 0 0 1em #2a73b9;
     margin-top: -0.3em;
     z-index: 4;

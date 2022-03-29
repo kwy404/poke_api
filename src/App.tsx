@@ -17,20 +17,65 @@ function App() {
   const [selectPokemon, SetSelectPokemon] = useState({url: "", name: "", moreData: {types: [{type: {name: ''}, stats: {base_stat: ``, stat:{name: ``}}}]}})
   const [pokemonsData, setPokemonsData] = useState([])
   const [loadingApi, setApiLoading] = useState(false)
+  const [loadMorePokemons, setLoadMorePokemons] = useState(false)
+  const [pokemonLength, setPokemonLength] = useState(0)
 
+  useEffect(() => {
+    const localStorage = window.localStorage.getItem(`pokedex`)
+    if(!localStorage){
+      window.localStorage.setItem(`pokedex`, JSON.stringify([]))
+    }
+    const timerLoadMore = setInterval(() => {
+      loadMore()
+    }, 1000)
+  })
+
+  const SearchPokemonAPI = async () => {
+    //Use FETCH for get pokemon search name or id
+    setTimeout(async () => {
+      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${document.querySelector(`#searchPokemon`)?.value}`)
+      if(typeof response == `object`){
+        let data = await response.json()
+        const moreData = {...data}
+        data[`url`] = `https://pokeapi.co/api/v2/pokemon/${data?.id}/`
+        data[`moreData`] = moreData
+        if(typeof data.results == `undefined`){
+          SetSelectPokemon(data)
+        }
+      }
+    }, 300)
+  }
+
+  //Load more pokemons on scroll
+  const loadMore = () => {
+      setTimeout(() => {
+        if (window.innerHeight + document.documentElement.scrollTop === document.scrollingElement.scrollHeight) {
+          if(!loadMorePokemons){
+            setPokemonLength(pokemonsData.length)
+            setLoadMorePokemons(true)
+            StartLoadingApi()
+            window[`page`] = window[`page`] + 1
+          }
+          if(pokemonsData.length >= (pokemonLength  + 36) ){
+            setLoadMorePokemons(false)
+          }
+        }
+      }, 2000)
+  }
+  
   const StartLoadingApi = async () => {
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=36&offset=0`)
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${36 * (window[`page`] + 1)}&offset=${36 * (window[`page`])}`)
     const json = await response.json()
     const moreData = {...json}
     json.results.map((pokemon: any, index: number) => {
       //Fetch from url the pokemon data typeScript
       fetch(pokemon.url).then(response => response.json()).then(data => {
         moreData.results[index][`moreData`] = data
-        setTimeout(() => {
-          setPokemonsData(moreData.results)
-        }, 200)
       })
     })
+    setTimeout(() => {
+      setPokemonsData([...pokemonsData, ...moreData.results])
+    }, 1000)
   }
 
   if(!loadingApi){
@@ -55,7 +100,12 @@ function App() {
       />
       <div className='noImage'/>
       <Logo src={`./images/pokemon.png`}/>
-      <InputSearch placeholder='Pesquise Pokémon por nome ou por id'/>
+      <InputSearch 
+      onKeyUp={() => {
+        SearchPokemonAPI()
+      }}
+      id={`searchPokemon`}
+      placeholder='Pesquise Pokémon por nome ou por id'/>
       { selectPokemon && selectPokemon.moreData.types[0].type.name !== `` && (
         <ModalP 
         SetSelectPokemon={SetSelectPokemon}
@@ -130,6 +180,15 @@ function App() {
           </div>
         ))}
       </ListPokemons>
+      { loadMorePokemons && (<>
+        <br/><br/>
+        <h1 style={{
+          left: `9%`,
+          position: `relative`
+        }}>Loading...</h1>
+        <br/><br/>
+        <br/><br/>
+        </> )}
     </div>
   )
 }

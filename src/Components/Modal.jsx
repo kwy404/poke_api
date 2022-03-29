@@ -58,6 +58,9 @@ const ModalP = (props) => {
                   <h2>{stats.base_stat}</h2>
                   <div className='progress'>
                     <div 
+                    style={{
+                      width: `${stats.base_stat}%`
+                    }}
                     className={`subprogress ${props.selectPokemon.moreData.types[0].type.name}`}></div>
                   </div>
                 </div>
