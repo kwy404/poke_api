@@ -39,6 +39,7 @@ const ListPokemons = styled.div`
   justify-content: center;
   align-items: center;
   margin: 2.4em;
+  max-width: 1920px;
 `
 
 const PokemonCardLoading = styled.div`
@@ -88,7 +89,7 @@ const PokemonCardLoading = styled.div`
 `
 
 const PokemonCard = styled.div`
-  width: 200px;
+  width: 90%;
   height: 200px;
   margin: 0.8em;
   border-radius: 0.8em;
@@ -258,7 +259,7 @@ const Modal = styled.div`
             transition: 0.4s;
             width: 365px;
             filter: drop-shadow(2px 4px 6px black);
-            transform: scale(0.5) translateY(45%);
+            transform: scale(0.5) translateY(29%);
             z-index: 10;
           }
       }
@@ -270,6 +271,68 @@ const Modal = styled.div`
           top: 320px;
           border-radius: 0.8em;
           z-index: 6;
+          overflow-y: auto;
+          overflow-x: hidden;
+
+          ::-webkit-scrollbar {
+            width: 0.5em;
+            background: rgba(0,0,0,0.5);
+            border-radius: 0.8em;
+          }
+
+          ::-webkit-scrollbar-thumb {
+            width: 0.5em;
+            border-radius: 0.8em;
+            background: #fecb03;
+          }
+
+          .stats-item{
+            width: 100%;
+            display: flex;
+            justify-content: left;
+            align-items: left;
+            margin: 0.5em;
+            padding: 0.5em;
+            height: 2em;
+            border-radius: 0.8em;
+            background: hsl(0deg 0% 15%);
+          }
+
+          .stats-item h1{
+            color: #fff;
+            font-size: 0.5em;
+            display: flex;
+            margin-top: -5px;
+            font-weight: bold;
+            justify-content: center;
+          }
+
+          .stats-item h2{
+            color: #fff;
+            font-size: 0.6em;
+            display: flex;
+            font-weight: normal;
+            margin-top: -5px;
+            margin-left: 40%;
+            justify-content: center;
+          }
+
+          .stats-item .progress{
+            width: 40%;
+            height: 0.5em;
+            background: rgba(0,0,0,.50);
+            border-radius: 0.8em;
+            position: absolute;
+            float: right;
+            overflow: hidden;
+            right: 20px;
+          }
+
+          .stats-item .subprogress{
+              width: 50%;
+              height: 100%;
+              position: absolute;
+          }
       }
     }
 `

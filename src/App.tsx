@@ -12,7 +12,7 @@ const getImagePokemon = (url: string) => {
 }
 
 function App() {
-  const [selectPokemon, SetSelectPokemon] = useState({url: "", name: "", moreData: {types: [{type: {name: ''}}]}})
+  const [selectPokemon, SetSelectPokemon] = useState({url: "", name: "", moreData: {types: [{type: {name: ''}, stats: {base_stat: ``, stat:{name: ``}}}]}})
   const [pokemonsData, setPokemonsData] = useState([])
   const [loadingApi, setApiLoading] = useState(false)
 
@@ -46,7 +46,7 @@ function App() {
           {/* Pokemon select in Modal */}
           <div 
           onClick={() => {
-            SetSelectPokemon({url: "", name: "", moreData: {types: [{type: {name: ''}}]}})
+            SetSelectPokemon({url: "", name: "", moreData: {types: [{type: {name: ''}, stats: {base_stat: ``, stat:{name: ``}}}]}})
           }}
           className='close'><i className="fa-solid fa-xmark"></i></div>
           <div className={`contentPokemon ${selectPokemon.moreData.types[0].type.name}`}>
@@ -56,11 +56,23 @@ function App() {
             <p>
               #000{selectPokemon?.url.split(`pokemon/`)[1].replace(`/`, ``)}
             </p>
+            
             <img className='pokeBola' src={`./images/icon-logo-pokemon2.png`}/>
             <img className='spritePokemon' src={getImagePokemon(selectPokemon?.url)} alt={selectPokemon?.name.charAt(0).toUpperCase() + selectPokemon?.name.slice(1)}/>
           </div>
           <div className='bottom'>
-            
+            <div className='stats'>
+              { selectPokemon.moreData.stats.map((stats: any, index: number) => (  
+                <div className={`stats-item`}>
+                  <h1>{stats.stat.name.toUpperCase()}</h1>
+                  <h2>{stats.base_stat}</h2>
+                  <div className='progress'>
+                    <div 
+                    className={`subprogress ${selectPokemon.moreData.types[0].type.name}`}></div>
+                  </div>
+                </div>
+              ))}
+              </div>
           </div>
         </div>
       </Modal>
