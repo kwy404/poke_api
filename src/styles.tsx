@@ -22,6 +22,8 @@ const InputSearch = styled.input`
     float: right;
     margin-right: 150px;
     margin-top: 100px;
+    position: relative;
+    z-index: 1;
 `
 
 const Logo = styled.img`

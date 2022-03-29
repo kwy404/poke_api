@@ -6,6 +6,15 @@ body{
   overflow-y: auto;
 }
 
+.noImage{
+  content: '';
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 0;
+}
+
 .fire{
   background: #fba34c;
 }

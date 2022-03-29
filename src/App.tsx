@@ -40,6 +40,20 @@ function App() {
 
   return (
     <div className="App">
+      <img src={`./images/back.jpg`}
+      style={{
+        position: `fixed`,
+        top: `0px`,
+        left: `0px`,
+        width: `100%`,
+        height: `100%`,
+        transform: `scale(1.1)`,
+        opacity: `0.2`,
+        userSelect: `none`,
+        objectFit: `cover`
+      }}
+      />
+      <div className='noImage'/>
       <Logo src={`./images/pokemon.png`}/>
       <InputSearch placeholder='Pesquise Pokémon por nome ou por id'/>
       { selectPokemon && selectPokemon.moreData.types[0].type.name !== `` && (
