@@ -1,24 +1,25 @@
-import react, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
-import {
-  useQuery
-} from 'react-query'
 
-import { Logo, ListPokemons, PokemonCardLoading, PokemonCard, InputSearch } from './styles'
+import { Logo, ListPokemons, PokemonCard, InputSearch } from './styles'
 
 import ModalP from './Components/Modal'
 
-const getImagePokemon = (url: string) => {
+declare var window: any;
+declare var document: any;
+declare var newArry: any;
+declare var old: any;
+
+function getImagePokemon(url: string) {
   const id = url.split(`pokemon/`)[1].replace(`/`, ``)
   return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`
 }
 
 function App() {
   const [selectPokemon, SetSelectPokemon] = useState({url: "", name: "", moreData: {types: [{type: {name: ''}, stats: {base_stat: ``, stat:{name: ``}}}]}})
-  const [pokemonsData, setPokemonsData] = useState([])
+  const [pokemonsData, setPokemonsData] = useState<any[]>([])
   const [loadingApi, setApiLoading] = useState(false)
   const [loadMorePokemons, setLoadMorePokemons] = useState(false)
-  const [pokemonLength, setPokemonLength] = useState(0)
 
   useEffect(() => {
     const localStorage = window.localStorage.getItem(`pokedex`)
@@ -28,7 +29,6 @@ function App() {
     document.addEventListener('scroll', () => {
       if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
         if(!loadMorePokemons){
-          setPokemonLength(pokemonsData.length)
           setLoadMorePokemons(true)
           window[`page`] = window[`page`] + 1
           StartLoadingApi()
@@ -57,7 +57,7 @@ function App() {
     }, 300)
   }
   
-  const StartLoadingApi = async () => {
+  const StartLoadingApi = async () => { 
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${36 * (window[`page`] + 1)}&offset=${36 * (window[`page`])}`)
     const json = await response.json()
     const moreData = {...json}
@@ -68,13 +68,14 @@ function App() {
       })
     })
     setTimeout(() => {
-      const newArry = []
+      newArry = []
       if(window[`page`] !== 0){
         moreData.results.map((pokemon: any) => {
           //Add in array newArry pokemon
           newArry.push(pokemon)
         })
         setApiLoading(true)
+        const old = [] as  any;
         setPokemonsData(old => [...old, ...newArry])
         setLoadMorePokemons(false)
         document.querySelector(`body`)?.classList.remove(`loading`)
