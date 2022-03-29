@@ -32,6 +32,8 @@ function App() {
           setLoadMorePokemons(true)
           window[`page`] = window[`page`] + 1
           StartLoadingApi()
+          window.scrollTo(0, window.innerHeight)
+          document.querySelector(`body`)?.classList.add(`loading`)
         }
       }
     })
@@ -56,7 +58,7 @@ function App() {
   }
   
   const StartLoadingApi = async () => {
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${36 * (window[`page`])}&offset=${36 * (window[`page`])}`)
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${36 * (window[`page`] + 1)}&offset=${36 * (window[`page`])}`)
     const json = await response.json()
     const moreData = {...json}
     json.results.map((pokemon: any, index: number) => {
@@ -66,18 +68,20 @@ function App() {
       })
     })
     setTimeout(() => {
-      var newArry = pokemonsData
-      if(window[`page`] !== 1){
+      const newArry = []
+      if(window[`page`] !== 0){
         moreData.results.map((pokemon: any) => {
+          //Add in array newArry pokemon
           newArry.push(pokemon)
         })
         setApiLoading(true)
-        setPokemonsData(newArry)
+        setPokemonsData(old => [...old, ...newArry])
+        setLoadMorePokemons(false)
+        document.querySelector(`body`)?.classList.remove(`loading`)
       } else{
         setPokemonsData(moreData.results)
       }
     }, 1000)
-    setLoadMorePokemons(false)
   }
 
   if(!loadingApi){
