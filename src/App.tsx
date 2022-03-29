@@ -92,7 +92,7 @@ function App() {
 
   return (
     <div className="App">
-      <img src={`./images/back.jpg`}
+      <img src={`https://github.com/kwy404/poke_api/blob/main/images/back.jpg`}
       style={{
         position: `fixed`,
         top: `0px`,
@@ -106,7 +106,7 @@ function App() {
       }}
       />
       <div className='noImage'/>
-      <Logo src={`./images/pokemon.png`}/>
+      <Logo src={`.https://github.com/kwy404/poke_api/blob/main/images/pokemon.png`}/>
       <InputSearch 
       onKeyUp={() => {
         SearchPokemonAPI()
