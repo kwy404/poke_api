@@ -82,3 +82,7 @@ body{
 .steel{
   background: #51889e;
 }
+
+.loading{
+  overflow: hidden;
+}

@@ -74,7 +74,17 @@ function App() {
       })
     })
     setTimeout(() => {
-      setPokemonsData([...pokemonsData, ...moreData.results])
+      var newArry = pokemonsData
+      if(window[`page`] !== 0){
+        moreData.results.map((pokemon: any) => {
+          newArry.push(pokemon)
+        })
+        setApiLoading(true)
+        setPokemonsData(newArry)
+      } else{
+        setPokemonsData(moreData.results)
+      }
+      
     }, 1000)
   }
 
@@ -154,15 +164,6 @@ function App() {
       <ListPokemons>
         { loadingApi && pokemonsData && pokemonsData.map((pokemon: any, index: number) => (
           <div key={index}>
-            {
-              !pokemon.moreData && (
-                <PokemonCardLoading
-                >
-                  <h1 style={{color: `black`}}>Carregando</h1>
-                  <img className='pokeBola' src={`./images/icon-logo-pokemon2.png`}/>
-                </PokemonCardLoading>
-              )
-            }
             { pokemon.moreData && (
               <PokemonCard 
               onClick={() => {
