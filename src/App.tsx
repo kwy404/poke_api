@@ -68,7 +68,7 @@ function App() {
       })
     })
     setTimeout(() => {
-      newArry = []
+      const newArry = []
       if(window[`page`] !== 0){
         moreData.results.map((pokemon: any) => {
           //Add in array newArry pokemon
