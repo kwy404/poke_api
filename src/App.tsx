@@ -7,7 +7,7 @@ import ModalP from './Components/Modal'
 
 declare var window: any;
 declare var document: any;
-declare var newArry: any;
+var newArry: any[] = [];
 declare var old: any;
 
 function getImagePokemon(url: string) {
@@ -68,7 +68,7 @@ function App() {
       })
     })
     setTimeout(() => {
-      let newArry = []
+      newArry = []
       if(window[`page`] !== 0){
         moreData.results.map((pokemon: any) => {
           //Add in array newArry pokemon
