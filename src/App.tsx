@@ -25,9 +25,9 @@ function App() {
     if(!localStorage){
       window.localStorage.setItem(`pokedex`, JSON.stringify([]))
     }
-    const timerLoadMore = setInterval(() => {
+    document.addEventListener('scroll', () => {
       loadMore()
-    }, 1000)
+    })
   })
 
   const SearchPokemonAPI = async () => {
