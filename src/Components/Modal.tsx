@@ -53,7 +53,7 @@ const ModalP = (props: any) => {
               #000{props.selectPokemon?.url.split(`pokemon/`)[1].replace(`/`, ``)}
             </p>
             
-            <img className='pokeBola' src={`https://github.com/kwy404/poke_api/blob/main/images/icon-logo-pokemon2.png`}/>
+            <img className='pokeBola' src={`https://raw.githubusercontent.com/kwy404/poke_api/main/images/icon-logo-pokemon2.png`}/>
             <img className='spritePokemon' src={props.getImagePokemon(props.selectPokemon?.url)} alt={props.selectPokemon?.name.charAt(0).toUpperCase() + props.selectPokemon?.name.slice(1)}/>
           </div>
           <div className='bottom'>
