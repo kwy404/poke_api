@@ -108,6 +108,10 @@ const PokemonCard = styled.div`
     filter: brightness(1);
   }
 
+  &:hover .spritePokemon{
+      transform: scale(1.1);
+  }
+
   img {
     width: 100%;
     height: 100%;
