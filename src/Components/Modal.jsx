@@ -11,6 +11,34 @@ const ModalP = (props) => {
             props.SetSelectPokemon({url: "", name: "", moreData: {types: [{type: {name: ''}, stats: {base_stat: ``, stat:{name: ``}}}]}})
           }}
           className='close'><i className="fa-solid fa-xmark"></i></div>
+          <div 
+          onClick={() => {
+            const localStorage = window.localStorage.getItem(`pokedex`)
+            let parsedLocalStorage = JSON.parse(localStorage)
+            if(localStorage){
+              const pokemonFind = parsedLocalStorage.find(pokemon => pokemon.name === props.selectPokemon.name)
+              if(!pokemonFind){
+                parsedLocalStorage = [...parsedLocalStorage, props.selectPokemon]
+                window.localStorage.setItem(`pokedex`, JSON.stringify(parsedLocalStorage))
+              } else{
+                //Remove pokemon from localStorage
+                parsedLocalStorage = parsedLocalStorage.filter(pokemon => pokemon.name !== props.selectPokemon.name)
+                window.localStorage.setItem(`pokedex`, JSON.stringify(parsedLocalStorage))
+              }
+            } else{
+              window.localStorage.setItem(`pokedex`, JSON.stringify([props.selectPokemon]))
+            }
+            const oldSetPokemon = props.selectPokemon
+            props.SetSelectPokemon({url: "", name: "", moreData: {types: [{type: {name: ''}, stats: {base_stat: ``, stat:{name: ``}}}]}})
+            setTimeout(() => {
+              props.SetSelectPokemon(oldSetPokemon)
+            }, 20)
+          }}
+          className='love'><i 
+          style={{
+            color: `${JSON.parse(window.localStorage.getItem(`pokedex`)) && JSON.parse(window.localStorage.getItem(`pokedex`)).find(pokemon => pokemon.name === props.selectPokemon.name) ? '#cd3d3d' : 'white'}`
+          }}
+          className="fa-solid fa-heart"></i></div>
           <div className={`contentPokemon ${props.selectPokemon.moreData.types[0].type.name}`}>
             <h2>
                 {props.selectPokemon?.name.charAt(0).toUpperCase() + props.selectPokemon?.name.slice(1)}

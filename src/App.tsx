@@ -63,6 +63,40 @@ function App() {
         getImagePokemon={getImagePokemon}
         />
       ) }
+      {JSON.parse(window.localStorage.getItem(`pokedex`)) &&
+         <h1 style={{
+          left: `9%`,
+          position: `relative`
+        }}>Pokémon's favoritados</h1>
+      }
+      { JSON.parse(window.localStorage.getItem(`pokedex`)) && (
+        <h1 style={{
+          left: `9%`,
+          position: `relative`,
+          fontSize: `1.5em`
+        }}>{ JSON.parse(window.localStorage.getItem(`pokedex`)).length == 0 ? `Nenhum Pokémon Favoritados`: `` } </h1>
+      ) }
+      <ListPokemons>
+        {JSON.parse(window.localStorage.getItem(`pokedex`)) && JSON.parse(window.localStorage.getItem(`pokedex`)).map((pokemon: any, index: number) => (
+          <div key={index}>
+          { pokemon.moreData && (
+              <PokemonCard 
+              onClick={() => {
+                SetSelectPokemon(pokemon)
+              }}
+              className={`${pokemon.moreData.types[0].type.name}`}>
+              <img className='type' src={`./images/types/${pokemon.moreData.types[0].type.name}.png`}/>
+              <img className='pokeBola' src={`./images/icon-logo-pokemon2.png`}/>
+              <img className='spritePokemon' src={getImagePokemon(pokemon?.url)} alt={pokemon?.name.charAt(0).toUpperCase() + pokemon?.name.slice(1)}/>
+              <h2>
+                {pokemon?.name.charAt(0).toUpperCase() + pokemon?.name.slice(1)}
+              </h2>
+            </PokemonCard>
+            )}
+          </div>
+        ))}
+      </ListPokemons>
+
       <h1 style={{
         left: `9%`,
         position: `relative`

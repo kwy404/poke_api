@@ -212,6 +212,33 @@ const Modal = styled.div`
         left: 30%;
       }
     }
+    .love {
+        filter: drop-shadow(2px 4px 6px black);
+        cursor: pointer;
+        position: absolute;
+        top: 70px;
+        color: white;
+        z-index: 11;
+        padding: 0.5em;
+        width: 20px;
+        height: 20px;
+        right: 20px;
+        border-radius: 50%;
+        color: #fff;
+        font-size: 1.5em;
+        text-shadow: 0 0 1em #fff;
+        &:hover {
+          color: #cd3d3d;
+          text-shadow: 0 0 1em #fff;
+        }
+        i{
+          font-size: 0.7em;
+          position: absolute;
+          top: 20%;
+          left: 30%;
+        }
+      }
+
     .modal-content {
       width: 400px;
       height: 700px;
