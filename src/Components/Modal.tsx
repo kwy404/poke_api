@@ -1,6 +1,12 @@
 import { Modal } from '../styles'
 
-const ModalP = (props) => {
+declare var window: any;
+declare var document: any;
+declare var pokemon: any;
+var newArry: any[] = [];
+declare var old: any;
+
+const ModalP = (props: any) => {
   return (
     <>
       <Modal>
@@ -16,13 +22,13 @@ const ModalP = (props) => {
             const localStorage = window.localStorage.getItem(`pokedex`)
             let parsedLocalStorage = JSON.parse(localStorage)
             if(localStorage){
-              const pokemonFind = parsedLocalStorage.find(pokemon => pokemon.name === props.selectPokemon.name)
+              const pokemonFind = parsedLocalStorage.find((pokemon: any) => pokemon.name === props.selectPokemon.name)
               if(!pokemonFind){
                 parsedLocalStorage = [...parsedLocalStorage, props.selectPokemon]
                 window.localStorage.setItem(`pokedex`, JSON.stringify(parsedLocalStorage))
               } else{
                 //Remove pokemon from localStorage
-                parsedLocalStorage = parsedLocalStorage.filter(pokemon => pokemon.name !== props.selectPokemon.name)
+                parsedLocalStorage = parsedLocalStorage.filter((pokemon: any) => pokemon.name !== props.selectPokemon.name)
                 window.localStorage.setItem(`pokedex`, JSON.stringify(parsedLocalStorage))
               }
             } else{
@@ -36,7 +42,7 @@ const ModalP = (props) => {
           }}
           className='love'><i 
           style={{
-            color: `${JSON.parse(window.localStorage.getItem(`pokedex`)) && JSON.parse(window.localStorage.getItem(`pokedex`)).find(pokemon => pokemon.name === props.selectPokemon.name) ? '#cd3d3d' : 'white'}`
+            color: `${JSON.parse(window.localStorage.getItem(`pokedex`)) && JSON.parse(window.localStorage.getItem(`pokedex`)).find((pokemon: any) => pokemon.name === props.selectPokemon.name) ? '#cd3d3d' : 'white'}`
           }}
           className="fa-solid fa-heart"></i></div>
           <div className={`contentPokemon ${props.selectPokemon.moreData.types[0].type.name}`}>
@@ -52,7 +58,7 @@ const ModalP = (props) => {
           </div>
           <div className='bottom'>
             <div className='stats'>
-              { props.selectPokemon.moreData.stats.map((stats, index) => (  
+              { props.selectPokemon.moreData.stats.map((stats: any, index: number) => (  
                 <div className={`stats-item`} key={index}>
                   <h1>{stats.stat.name.toUpperCase()}</h1>
                   <h2>{stats.base_stat}</h2>
