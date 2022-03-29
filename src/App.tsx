@@ -26,7 +26,14 @@ function App() {
       window.localStorage.setItem(`pokedex`, JSON.stringify([]))
     }
     document.addEventListener('scroll', () => {
-      loadMore()
+      if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
+        if(!loadMorePokemons){
+          setPokemonLength(pokemonsData.length)
+          setLoadMorePokemons(true)
+          window[`page`] = window[`page`] + 1
+          StartLoadingApi()
+        }
+      }
     })
   })
 
@@ -47,23 +54,9 @@ function App() {
       }
     }, 300)
   }
-
-  //Load more pokemons on scroll
-  const loadMore = () => {
-      setTimeout(() => {
-        if (window.innerHeight + document.documentElement.scrollTop === document.scrollingElement.scrollHeight) {
-          if(!loadMorePokemons){
-            setPokemonLength(pokemonsData.length)
-            StartLoadingApi()
-            setLoadMorePokemons(true)
-            window[`page`] = window[`page`] + 1
-          }
-        }
-      }, 2000)
-  }
   
   const StartLoadingApi = async () => {
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${36 * (window[`page`] + 1)}&offset=${36 * (window[`page`])}`)
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${36 * (window[`page`])}&offset=${36 * (window[`page`])}`)
     const json = await response.json()
     const moreData = {...json}
     json.results.map((pokemon: any, index: number) => {
@@ -74,17 +67,17 @@ function App() {
     })
     setTimeout(() => {
       var newArry = pokemonsData
-      if(window[`page`] !== 0){
+      if(window[`page`] !== 1){
         moreData.results.map((pokemon: any) => {
           newArry.push(pokemon)
         })
         setApiLoading(true)
         setPokemonsData(newArry)
-        setLoadMorePokemons(false)
       } else{
         setPokemonsData(moreData.results)
       }
     }, 1000)
+    setLoadMorePokemons(false)
   }
 
   if(!loadingApi){
