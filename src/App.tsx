@@ -4,7 +4,9 @@ import {
   useQuery
 } from 'react-query'
 
-import { Logo, ListPokemons, PokemonCardLoading, PokemonCard, Modal, InputSearch } from './styles'
+import { Logo, ListPokemons, PokemonCardLoading, PokemonCard, InputSearch } from './styles'
+
+import ModalP from './Components/Modal'
 
 const getImagePokemon = (url: string) => {
   const id = url.split(`pokemon/`)[1].replace(`/`, ``)
@@ -41,41 +43,11 @@ function App() {
       <Logo src={`./images/pokemon.png`}/>
       <InputSearch placeholder='Pesquise Pokémon por nome ou por id'/>
       { selectPokemon && selectPokemon.moreData.types[0].type.name !== `` && (
-      <Modal>
-        <div className='modal-content'>
-          {/* Pokemon select in Modal */}
-          <div 
-          onClick={() => {
-            SetSelectPokemon({url: "", name: "", moreData: {types: [{type: {name: ''}, stats: {base_stat: ``, stat:{name: ``}}}]}})
-          }}
-          className='close'><i className="fa-solid fa-xmark"></i></div>
-          <div className={`contentPokemon ${selectPokemon.moreData.types[0].type.name}`}>
-            <h2>
-                {selectPokemon?.name.charAt(0).toUpperCase() + selectPokemon?.name.slice(1)}
-            </h2>
-            <p>
-              #000{selectPokemon?.url.split(`pokemon/`)[1].replace(`/`, ``)}
-            </p>
-            
-            <img className='pokeBola' src={`./images/icon-logo-pokemon2.png`}/>
-            <img className='spritePokemon' src={getImagePokemon(selectPokemon?.url)} alt={selectPokemon?.name.charAt(0).toUpperCase() + selectPokemon?.name.slice(1)}/>
-          </div>
-          <div className='bottom'>
-            <div className='stats'>
-              { selectPokemon.moreData.stats.map((stats: any, index: number) => (  
-                <div className={`stats-item`}>
-                  <h1>{stats.stat.name.toUpperCase()}</h1>
-                  <h2>{stats.base_stat}</h2>
-                  <div className='progress'>
-                    <div 
-                    className={`subprogress ${selectPokemon.moreData.types[0].type.name}`}></div>
-                  </div>
-                </div>
-              ))}
-              </div>
-          </div>
-        </div>
-      </Modal>
+        <ModalP 
+        SetSelectPokemon={SetSelectPokemon}
+        selectPokemon={selectPokemon}
+        getImagePokemon={getImagePokemon}
+        />
       ) }
       <ListPokemons>
         { loadingApi && pokemonsData && pokemonsData.map((pokemon: any, index: number) => (
