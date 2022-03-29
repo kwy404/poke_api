@@ -142,8 +142,8 @@ function App() {
                 SetSelectPokemon(pokemon)
               }}
               className={`${pokemon.moreData.types[0].type.name}`}>
-              <img className='type' src={`./images/types/${pokemon.moreData.types[0].type.name}.png`}/>
-              <img className='pokeBola' src={`./images/icon-logo-pokemon2.png`}/>
+              <img className='type' src={`https://github.com/kwy404/poke_api/blob/main/images/types/${pokemon.moreData.types[0].type.name}.png`}/>
+              <img className='pokeBola' src={`https://github.com/kwy404/poke_api/blob/main/images/icon-logo-pokemon2.png`}/>
               <img className='spritePokemon' src={getImagePokemon(pokemon?.url)} alt={pokemon?.name.charAt(0).toUpperCase() + pokemon?.name.slice(1)}/>
               <h2>
                 {pokemon?.name.charAt(0).toUpperCase() + pokemon?.name.slice(1)}
